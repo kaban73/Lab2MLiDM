@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lab2</title>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="title">
+                Лабораторная работа №2 по МЛиДМ
+            </div>
+            <div class="sub__title">
+                Определение свойств отношений. Вариант №7 - пары.
+            </div>
+            <div class="form__main">
+                <form action="" method="POST" id="form">
+                    <div class="element__form">
+                        <div class="title__element__form">
+                            Введите множество, состоящее из целых натуральных чисел(числа разделять только пробелом):
+                        </div>
+                        <div class="input__element__form">
+                            <input type="text" placeholder="Введите ножество" id="arr">
+                        </div>
+                        <div id="val1"></div>
+                    </div>
+                    <div class="element__form">
+                        <div class="title__element__form">
+                            Введите пары, входящие в это множество(пример: x y,x1 y1,x2 y2...):
+                        </div>
+                        <div class="input__element__form">
+                            <input type="text" placeholder="Введите пары" id="pairs">
+                        </div>
+                        <div id="val2"></div>
+                    </div>
+                    <input type="button" value="Определить отношения" class="btn" onclick="Main()">
+                </form>
+            </div>
+            <div id="result">
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
