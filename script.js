@@ -24,39 +24,70 @@ function validatePairs(el, arr) {
 }
 
 // рефлексивность
-function reflex(el) {
-    if (el[0] == el[2]) return true
+function reflex(arr, pairs) {
+    let fl = false;
+    for (let i = 0; i < arr.length; i++) {
+        fl = false;
+        for (let j = 0; j < pairs.length; j++) {
+            if ((arr[i] == pairs[j][0]) && (arr[i] == pairs[j][2])) {
+                fl = true;
+            }
+        }
+        if (!fl) {
+            return false;
+        }
+    }
+    if (fl) return true;
     else return false;
 }
 
 // симметричность
-function symmetric(el) {
-    return true;
+function symmetric(pairs) {
+    let fl = false;
+    for (let i = 0; i < pairs.length; i++) {
+        fl = false;
+        for (let j = 0; j < pairs.length; j++) {
+            if ((pairs[i][0] == pairs[j][2]) && (pairs[i][2] == pairs[j][0])) {
+                fl = true;
+            }
+        }
+        if (!fl) {
+            return false;
+        }
+    }
+    if (fl) return true;
+    else return false;
 }
 
 // кососимметричность
-function cososymmetric(el, pairs, num) {
-    /** var1
-    return pairs.includes(el.split('').reverse().join(''));
-    */
-   for (let i = 0; i < pairs.length; i++) {
-    if (i == num) continue;
-    if (pairs[i].includes(el.split('').reverse().join(''))) return true
-   }
-   return false;
+function cososymmetric(pairs) {
+    let fl = true
+    for (let i = 0; i < pairs.length; i++) {
+        fl = true;
+        if (pairs[i][0] != pairs[i][2]) {
+            /** return false*/
+            for (let j = 0; j < pairs.length; j++) {
+                if ((pairs[i][0] == pairs[j][2]) && (pairs[i][2] == pairs[j][0])) {
+                    fl = false;
+                    break;
+                }
+            }
+        }
+    }
+    if (fl) return true;
+    else return false;
 }
 
 // транзитивность
-function tranzitive(el, pairs, num) {
-    let el1 = el[0];
-    let el2 = el[2];
-    for (let i = 0; i< pairs.length; i++) {
-        if (i == num) continue;
-        if ((pairs[i].includes(el1.split('').join(''))) && (pairs[i].includes(el2.split('').join('')))) continue;
-        let elEl = pairs[i];
-        if (elEl[0] == elEl[2]) continue;
-        if ((pairs[i].includes(el1.split('').join(''))) || (pairs[i].includes(el2.split('').join('')))) {
-            return true;
+function tranzitive(pairs) {
+    for (let i = 0; i < pairs.length; i++) {
+        for (let j = 0; j < pairs.length; j++) {
+            for (let l = 0; l < pairs.length; l++) {
+                if (((pairs[i][0] == pairs[l][0]) && (pairs[i][2] == pairs[j][0]) && (pairs[j][2] == pairs[l][2])) ||
+                ((pairs[i][2] == pairs[l][0]) && (pairs[i][0] == pairs[j][2]) && (pairs[j][0] == pairs[l][2]))) {
+                    return true;
+                }
+            }
         }
     }
     return false;
@@ -97,30 +128,10 @@ function Main() {
     document.getElementById("val2").innerHTML = message2;
 
     if (message1 == "" && message2 == "") {
-        /** var 1
-        let refl = true;
-        let simm = true;
-        let cosSimm = true;
-        let tranz = true;
-        */
-        let refl = false;
-        let simm = false;
-        let cosSimm = false;
-        let tranz = false;
-        for (let i = 0; i < pairs.length; i++)
-        {
-            /** 
-            refl = reflex(pairs[i]);
-            simm = symmetric(pairs[i]);
-            cosSimm = cososymmetric(pairs[i], pairs);
-            tranz = tranzitive(pairs[i], pairs, i);
-            */
-           if (!refl)  refl = reflex(pairs[i]);
-           if (!simm)  simm = symmetric(pairs[i]);
-           if (!cosSimm) cosSimm = cososymmetric(pairs[i], pairs, i);
-           if (!tranz) tranz = tranzitive(pairs[i], pairs, i);
-
-        }
+        let refl = reflex(arr, pairs);
+        let simm = symmetric(pairs);
+        let cosSimm = cososymmetric(pairs);
+        let tranz = tranzitive(pairs);
         let resultMessage = "";
         if (refl) resultMessage += "Рефлексивно "
         else resultMessage += "Не рефлексивно "
